@@ -25,8 +25,6 @@ app.use(
   })
 );
 
-app.options("*", cors());
-
 admin.initializeApp({
   credential: admin.credential.cert({
     projectId: process.env.FIREBASE_PROJECT_ID,
