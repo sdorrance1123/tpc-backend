@@ -14,7 +14,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "https://thepinkcollective.org",
+      "https://www.thepinkcollective.org",
+    ],
   })
 );
 
@@ -304,8 +308,8 @@ app.post("/create-checkout-session", async (req, res) => {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: lineItems,
-      success_url: "http://localhost:3000/success",
-      cancel_url: "http://localhost:3000/parents",
+      success_url: "https://thepinkcollective.org/success",
+      cancel_url: "https://thepinkcollective.org",
       automatic_tax: { enabled: true },
 
       ...(hasPhysicalItems && {
