@@ -180,9 +180,9 @@ async function fulfillOrder(session) {
   // ----------------------------
   // ACCESS CODE FULFILLMENT
   // ----------------------------
-  const accessCodeItem = lineItems.data.find(
-    (item) => item.description === "Safrly Access Code"
-  );
+const accessCodeItem = lineItems.data.find(
+  (item) => item.description.includes("Access Code")
+);
 
   if (accessCodeItem) {
     for (let i = 0; i < accessCodeItem.quantity; i++) {
