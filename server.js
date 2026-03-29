@@ -258,8 +258,8 @@ app.get("/test-checkout", async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: "http://localhost:3000/success",
-      cancel_url: "http://localhost:3000",
+      success_url: "https://thepinkcollective.org/success",
+      cancel_url: "https://thepinkcollective.org/parents",
     });
 
     res.redirect(session.url);
