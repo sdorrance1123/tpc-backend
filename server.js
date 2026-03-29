@@ -18,9 +18,14 @@ app.use(
       "http://localhost:3000",
       "https://thepinkcollective.org",
       "https://www.thepinkcollective.org",
+      "https://safrly.thepinkcollective.org",
     ],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+app.options("*", cors());
 
 admin.initializeApp({
   credential: admin.credential.cert({
