@@ -6,7 +6,7 @@ const Stripe = require("stripe");
 const admin = require("firebase-admin");
 const { Resend } = require("resend");
 const resend = new Resend(process.env.RESEND_API_KEY);
-const serviceAccount = require("./serviceAccountKey.json");
+
 
 const app = express();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -19,7 +19,11 @@ app.use(
 );
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert({
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+  }),
 });
 
 const db = admin.firestore();
@@ -379,7 +383,7 @@ app.post("/create-account-with-code", async (req, res) => {
   }
 });
 
-const PORT = 4242;
+const PORT = process.env.PORT || 4242;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
   console.log(
